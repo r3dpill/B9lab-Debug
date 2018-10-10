@@ -1,3 +1,6 @@
+This file and amended .sol files for each exercise uploaded here:
+https://github.com/r3dpill/B9lab-Debug
+
 //Debug Exercise 1
 PiggyBank
 In this contract, value that is sent by the owner is being stored only if it is sent by the owner. It is returned in full when the contract is destroyed after the owner, and only the owner, sends the password to the kill function.

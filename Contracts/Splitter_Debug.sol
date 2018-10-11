@@ -1,3 +1,8 @@
+//B9lab Ethereum Developer Course
+//Debug Exercises
+//Ex3 - Splitter
+//Toby Wise - 11.Oct.18
+
 pragma solidity ^0.4.24;
 
 contract Splitter {
@@ -23,10 +28,10 @@ contract Splitter {
         remaining+=msg.value;
         uint amount = remaining / 3;
         remaining-=amount;
-        require(one.send(amount));
+        one.transfer(amount);
         emit LogPayout(amount, one, remaining);
         remaining-=amount;
-        require(two.send(amount));
+        two.transfer(amount);
         emit LogPayout(amount, two, remaining);
     }
     

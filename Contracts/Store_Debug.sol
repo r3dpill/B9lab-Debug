@@ -1,3 +1,8 @@
+//B9lab Ethereum Developer Course
+//Debug Exercises
+//Ex2 - Store
+//Toby Wise - 11.Oct.18
+
 pragma solidity ^0.4.24;
 
 interface WarehouseI {
@@ -17,7 +22,7 @@ contract Store {
     }
 
     function purchase(uint id, string where) public payable returns (bool success) {
-        require(wallet.send(msg.value),'failed to send funds');
+        wallet.transfer(msg.value);
         warehouse.setDeliveryAddress(where);
         return warehouse.ship(id, msg.sender);
         emit LogShipped(id, where, msg.sender);

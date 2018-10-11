@@ -1,11 +1,18 @@
-pragma solidity ^0.4.24;
+//B9lab Ethereum Developer Course
+//Debug Exercises
+//Ex1 - PiggyBank
+//Toby Wise - 11.Oct.18
+
+pragma solidity ^0.4.21;
 
 contract PiggyBank {
     address owner;
     uint balance;
     bytes32 hashedPassword;
 
-    modifier IsOwner() {
+    event LogHash(bytes32 pwd);
+    
+    modifier isOwner() {
         require(msg.sender == owner);
         _;
     }
@@ -16,16 +23,15 @@ contract PiggyBank {
         hashedPassword = _hashedPassword;
     }
 
-    function AddFunds() public payable IsOwner {
-        balance += uint(msg.value);
-    }
-    
-    function WithdrawFunds() public IsOwner {
-        owner.transfer(balance);
+    function () public payable isOwner {
+        assert(balance + msg.value >= balance);
+        balance += msg.value;
     }
 
-    function kill(bytes32 password) public IsOwner {
-        require(keccak256(abi.encodePacked(owner, password)) == hashedPassword);
+    function kill(bytes32 password) public {
+        //Event added for testing to confirm required _hashedPassword
+        emit LogHash(keccak256(abi.encodePacked(owner, password)));
+        require (keccak256(abi.encodePacked(owner, password)) == hashedPassword);
         selfdestruct(owner);
     }
 }
